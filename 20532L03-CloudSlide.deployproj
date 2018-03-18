@@ -28,6 +28,7 @@
     </None>
     <Content Include="Deploy-AzureResourceGroup.ps1" />
     <Content Include="parameters.json" />
+    <Content Include="ImageBuild-Deploy.json" />
     <Content Include="template.json" />
     <None Include="RefreshLab.ps1" />
   </ItemGroup>

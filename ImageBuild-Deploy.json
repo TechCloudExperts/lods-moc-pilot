@@ -18,18 +18,13 @@
     },
     "scriptFileLocationUri": {
       "type": "string",
-      "defaultValue": "https://raw.githubusercontent.com/TechCloudExperts/lods-moc-pilot/master/PrepareDataDisk.ps1"
+      "defaultValue": "https://raw.githubusercontent.com/TechCloudExperts/lods-moc-pilot/master/"
     },
     "storageType": {
       "type": "string",
       "defaultValue": "Standard_LRS",
       "allowedValues": [ "Standard_LRS", "Premium_LRS" ]
-    },
-    "imageID": {
-      "type": "string",
-      "defaultValue": "/subscriptions/91d431c2-a451-4b37-8782-32c2d92fca00/resourceGroups/20532Base/providers/Microsoft.Compute/images/20532-LabImage"
     }
-
 
   },
   "variables": {
@@ -75,25 +70,22 @@
           "vmSize": "[parameters('virtualMachineSize')]"
         },
         "storageProfile": {
-          //"imageReference": {
-          //  "publisher": "[variables('20532VMImagePublisher')]",
-          //  "offer": "[variables('20532VMImageOffer')]",
-          //  "sku": "[variables('20532VMImageSku')]",
-          //  "version": "latest"
-          //},
           "imageReference": {
-            "id": "[parameters('imageID')]"
+            "publisher": "[variables('20532VMImagePublisher')]",
+            "offer": "[variables('20532VMImageOffer')]",
+            "sku": "[variables('20532VMImageSku')]",
+            "version": "latest"
           },
-          "osDisk": {
-            "createOption": "FromImage",
-            "name": "20532LabVM-OSDisk",
+         "osDisk": {
+          "createOption": "FromImage",
+          "name": "20532LabVM-OSDisk",
             "managedDisk": {
               "storageAccountType": "[parameters('storageType')]"
             }
           },
           "dataDisks": [
             {
-              "createOption": "FromImage",
+              "createOption": "Empty",
               "name": "20532LabVM-DataDisk",
               "lun": 0,
               "diskSizeGB": 32,
@@ -112,31 +104,31 @@
         }
       },
       "resources": [
-        //{
-        //  "name": "AllFilesConfig",
-        //  "type": "extensions",
-        //  "location": "[resourceGroup().location]",
-        //  "apiVersion": "2016-03-30",
-        //  "dependsOn": [
-        //    "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]"
-        //  ],
-        //  "tags": {
-        //    "displayName": "AllFiles Configuration"
-        //  },
-        //  "properties": {
-        //    "publisher": "Microsoft.Compute",
-        //    "type": "CustomScriptExtension",
-        //    "typeHandlerVersion": "1.4",
-        //    "autoUpgradeMinorVersion": true,
-        //    "settings": {
-        //      "fileUris": [
-        //        "[variables('scriptFileUri')]",
-        //        "[variables('taskFileUri')]"
-        //      ],
-        //      "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('scriptFile'))]"
-        //    }
-        //  }
-        //}
+        {
+          "name": "AllFilesConfig",
+          "type": "extensions",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2016-03-30",
+          "dependsOn": [
+            "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]"
+          ],
+          "tags": {
+            "displayName": "AllFiles Configuration"
+          },
+          "properties": {
+            "publisher": "Microsoft.Compute",
+            "type": "CustomScriptExtension",
+            "typeHandlerVersion": "1.4",
+            "autoUpgradeMinorVersion": true,
+            "settings": {
+              "fileUris": [
+                "[variables('scriptFileUri')]",
+                "[variables('taskFileUri')]"
+              ],
+              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('scriptFile'))]"
+            }
+          }
+        }
       ]
     },
     {
