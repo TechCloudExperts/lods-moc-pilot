@@ -19,6 +19,11 @@
     "scriptFileUri": {
       "type": "string",
       "defaultValue": "https://raw.githubusercontent.com/TechCloudExperts/lods-moc-pilot/master/PrepareDataDisk.ps1"
+    },
+    "storageType": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [ "Standard_LRS", "Premium_LRS" ]
     }
 
   },
@@ -72,7 +77,7 @@
          "osDisk": {
             "createOption": "FromImage",
             "managedDisk": {
-              "storageAccountType": "Premium_LRS"
+              "storageAccountType": "[parameters('storageType')]"
             }
           },
           "dataDisks": [
@@ -81,7 +86,7 @@
               "lun": 0,
               "diskSizeGB": 32,
               "managedDisk": {
-                "storageAccountType": "Premium_LRS"
+                "storageAccountType": "[parameters('storageType')]"
               }
             }
           ]
