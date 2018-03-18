@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "virtualMachineSize": {
-        "value": "STANDARD_F4"
+        "value": "Standard_D4s_v3"
       },
       "adminUsername": {
         "value": "student"

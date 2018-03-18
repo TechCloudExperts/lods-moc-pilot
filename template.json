@@ -72,7 +72,7 @@
          "osDisk": {
             "createOption": "FromImage",
             "managedDisk": {
-              "storageAccountType": "Standard_LRS"
+              "storageAccountType": "Premium_LRS"
             }
           },
           "dataDisks": [
@@ -81,7 +81,7 @@
               "lun": 0,
               "diskSizeGB": 32,
               "managedDisk": {
-                "storageAccountType": "Standard_LRS"
+                "storageAccountType": "Premium_LRS"
               }
             }
           ]
