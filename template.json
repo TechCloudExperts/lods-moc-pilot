@@ -16,7 +16,7 @@
       "type": "string",
       "defaultValue": "PrepareDataDisk.ps1"
     },
-    "scriptFileUri": {
+    "scriptFileLocationUri": {
       "type": "string",
       "defaultValue": "https://raw.githubusercontent.com/TechCloudExperts/lods-moc-pilot/master/PrepareDataDisk.ps1"
     },
@@ -28,6 +28,8 @@
 
   },
   "variables": {
+    "scriptFileUri": "[concat(parameters('scriptFileLocationUri'),parameters('scriptFile'))]",
+    "taskFileUri": "[concat(parameters('scriptFileLocationUri'),'RefreshLabs.ps1')]",
     "machineName": "vm20532",
     "20532VMImagePublisher": "MicrosoftVisualStudio",
     "20532VMImageOffer": "VisualStudio",
@@ -75,7 +77,8 @@
             "version": "latest"
           },
          "osDisk": {
-            "createOption": "FromImage",
+          "createOption": "FromImage",
+          "name": "20532LabVM-OSDisk",
             "managedDisk": {
               "storageAccountType": "[parameters('storageType')]"
             }
@@ -83,6 +86,7 @@
           "dataDisks": [
             {
               "createOption": "Empty",
+              "name": "20532LabVM-DataDisk",
               "lun": 0,
               "diskSizeGB": 32,
               "managedDisk": {
@@ -118,7 +122,8 @@
             "autoUpgradeMinorVersion": true,
             "settings": {
               "fileUris": [
-                "[parameters('scriptFileUri')]"
+                "[variables('scriptFileUri')]",
+                "[variables('taskFileUri')]"
               ],
               "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('scriptFile'))]"
             }

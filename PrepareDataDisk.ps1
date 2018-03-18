@@ -2,5 +2,10 @@
 $disk | Initialize-Disk 
 $partition = $disk | New-Partition -UseMaximumSize -AssignDriveLetter 
 $partition | Format-Volume -FileSystem NTFS
-git clone "https://github.com/MicrosoftLearning/20532-DevelopingMicrosoftAzureSolutions" F:\git
-Copy-Item -Path 'F:\git\Allfiles\dotnet\Mod*' -Destination 'F:\' -Recurse
+git clone "https://github.com/MicrosoftLearning/20532-DevelopingMicrosoftAzureSolutions" c:\LabSource
+Copy-Item -Path 'C:\git\Allfiles\dotnet\Mod*' -Destination 'F:\' -Recurse
+Copy-Item -Path '.\RefreshLabs.ps1' -Destination 'c:\RefreshLabs.ps1'
+$action = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument '-File "c:\RefreshLabs.ps1"'
+$trigger = New-ScheduledTaskTrigger -AtStartup
+$user = New-ScheduledTaskPrincipal -UserId "System"
+Register-ScheduledTask -Action $action -Trigger $trigger -User "System" -TaskName "UpdateLabFiles" -Description "Update all lab files"
