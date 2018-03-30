@@ -34,7 +34,7 @@
   },
   "variables": {
     "scriptFileUri": "[concat(parameters('scriptFileLocationUri'),parameters('scriptFile'))]",
-    "taskFileUri": "[concat(parameters('scriptFileLocationUri'),'RefreshLabs.ps1')]",
+    "taskFileUri": "[concat(parameters('scriptFileLocationUri'),'RefreshLab.ps1')]",
     "machineName": "vm20532",
     "20532VMImagePublisher": "MicrosoftVisualStudio",
     "20532VMImageOffer": "VisualStudio",
@@ -242,6 +242,15 @@
     "adminUsername": {
       "type": "string",
       "value": "[parameters('adminUsername')]"
+    },
+    "PrepareDisk": {
+      "type": "string",
+      "value": "[variables('scriptFileUri')]"
+    },
+    "RefreshLabs": {
+      "type": "string",
+      "value": "[variables('taskFileUri')]"
     }
+
   }
 }
