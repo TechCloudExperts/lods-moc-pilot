@@ -93,7 +93,7 @@
           },
           "dataDisks": [
             {
-              "createOption": "FromImage",
+              "createOption":"Empty",
               "name": "20532LabVM-DataDisk",
               "lun": 0,
               "diskSizeGB": 32,
