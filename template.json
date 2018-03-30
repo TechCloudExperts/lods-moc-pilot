@@ -75,15 +75,15 @@
           "vmSize": "[parameters('virtualMachineSize')]"
         },
         "storageProfile": {
-          //"imageReference": {
-          //  "publisher": "[variables('20532VMImagePublisher')]",
-          //  "offer": "[variables('20532VMImageOffer')]",
-          //  "sku": "[variables('20532VMImageSku')]",
-          //  "version": "latest"
-          //},
           "imageReference": {
-            "id": "[parameters('imageID')]"
+            "publisher": "[variables('20532VMImagePublisher')]",
+            "offer": "[variables('20532VMImageOffer')]",
+            "sku": "[variables('20532VMImageSku')]",
+            "version": "latest"
           },
+          //"imageReference": {
+          //  "id": "[parameters('imageID')]"
+          //},
           "osDisk": {
             "createOption": "FromImage",
             "name": "20532LabVM-OSDisk",
@@ -112,31 +112,31 @@
         }
       },
       "resources": [
-        //{
-        //  "name": "AllFilesConfig",
-        //  "type": "extensions",
-        //  "location": "[resourceGroup().location]",
-        //  "apiVersion": "2016-03-30",
-        //  "dependsOn": [
-        //    "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]"
-        //  ],
-        //  "tags": {
-        //    "displayName": "AllFiles Configuration"
-        //  },
-        //  "properties": {
-        //    "publisher": "Microsoft.Compute",
-        //    "type": "CustomScriptExtension",
-        //    "typeHandlerVersion": "1.4",
-        //    "autoUpgradeMinorVersion": true,
-        //    "settings": {
-        //      "fileUris": [
-        //        "[variables('scriptFileUri')]",
-        //        "[variables('taskFileUri')]"
-        //      ],
-        //      "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('scriptFile'))]"
-        //    }
-        //  }
-        //}
+        {
+          "name": "AllFilesConfig",
+          "type": "extensions",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2016-03-30",
+          "dependsOn": [
+            "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]"
+          ],
+          "tags": {
+            "displayName": "AllFiles Configuration"
+          },
+          "properties": {
+            "publisher": "Microsoft.Compute",
+            "type": "CustomScriptExtension",
+            "typeHandlerVersion": "1.4",
+            "autoUpgradeMinorVersion": true,
+            "settings": {
+              "fileUris": [
+                "[variables('scriptFileUri')]",
+                "[variables('taskFileUri')]"
+              ],
+              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('scriptFile'))]"
+            }
+          }
+        }
       ]
     },
     {
