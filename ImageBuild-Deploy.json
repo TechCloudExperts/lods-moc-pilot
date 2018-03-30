@@ -122,8 +122,9 @@
             "autoUpgradeMinorVersion": true,
             "settings": {
               "fileUris": [
-                "[variables('scriptFileUri')]",
-                "[variables('taskFileUri')]"
+                "[variables('scriptFileUri')]"
+                //"[variables('scriptFileUri')]",
+                //"[variables('taskFileUri')]"
               ],
               "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', parameters('scriptFile'))]"
             }
